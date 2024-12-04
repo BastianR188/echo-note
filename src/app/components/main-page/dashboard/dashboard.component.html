@@ -1,0 +1,56 @@
+<div class="main" [ngClass]="{'dark-mode': settings.darkMode}">
+    <ng-container *ngIf="selectedLabel !== 'trash'">
+        <app-input class="input" [settings]="settings"></app-input>
+    </ng-container>
+    <ng-container *ngIf="selectedLabel === 'trash' && trash.length !== 0">
+        <div class="d-row" [ngClass]="{'dark-mode': settings.darkMode}">
+            <div class="btn-box" (click)="deleteAllNotes()">Papierkorb leeren</div>
+        </div>
+    </ng-container>
+    <div class="main-note-board" [ngClass]="{'dark-mode': settings.darkMode}">
+        <ng-container *ngIf="filteredPinnedNotes.length !== 0">
+                <app-dynamic-layout class="max-width" #pinnedLayout [settings]="settings" [allNotes]="pinnedNotes"
+                    [filtered]="filteredPinnedNotes" [minColumnWidth]="260"></app-dynamic-layout>
+        </ng-container>
+        <ng-container *ngIf="filteredPinnedNotes.length !== 0 && filteredUnPinnedNotes.length !== 0">
+            <div class="stroke"></div>
+        </ng-container>
+
+        <ng-container *ngIf="filteredUnPinnedNotes.length !== 0">
+            <app-dynamic-layout class="max-width" #unpinnedLayout [settings]="settings" [allNotes]="unPinnedNotes"
+                [filtered]="filteredUnPinnedNotes" [minColumnWidth]="260"></app-dynamic-layout>
+        </ng-container>
+        <ng-container *ngIf="selectedLabel === 'trash' && trash.length !== 0">
+            <div class="trash-container">
+                <app-memo *ngFor="let note of trash" [settings]="settings" [note]="note"></app-memo>
+            </div>
+        </ng-container>
+        <ng-container
+            *ngIf="filteredPinnedNotes.length === 0 && filteredUnPinnedNotes.length === 0 && selectedLabel === '' && searchTerm.length === 0">
+            <div class="empty">
+                <img [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\note.svg" alt="">
+                Hier werden hinzugefügte Notizen angezeigt
+            </div>
+        </ng-container>
+        <ng-container
+            *ngIf="selectedLabel.length !== 0 && filteredPinnedNotes.length === 0 && filteredUnPinnedNotes.length === 0 && selectedLabel !== 'trash' && searchTerm.length === 0">
+            <div class="empty">
+                <img [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\label.svg" alt="">
+                Noch keine Notizen mit diesem Label vorhanden
+            </div>
+        </ng-container>
+        <ng-container *ngIf="selectedLabel === 'trash' && trash.length === 0">
+            <div class="empty">
+                <img [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\trash.svg" alt="">
+                Keine Notizen im Papierkorb
+            </div>
+        </ng-container>
+        <ng-container
+            *ngIf="searchTerm.length !== 0 && filteredPinnedNotes.length === 0 && filteredUnPinnedNotes.length === 0 && selectedLabel !== 'trash'">
+            <div class="empty" [ngClass]="{'dark-mode': settings.darkMode}">
+                <img [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\search.svg" alt="">
+                Keine passenden Ergebnisse gefunden
+            </div>
+        </ng-container>
+    </div>
+</div>

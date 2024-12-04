@@ -1,0 +1,25 @@
+<ng-container *ngIf="editLabel">
+    <div class="overlay" (click)="toggleEditLabel()"></div>
+    <app-edit-label class="edit-container" [labels]="labels" [settings]="settings" (closeLabel)="toggleEditLabel()"></app-edit-label>
+</ng-container>
+<div class="main" [ngClass]="{'open': sideMenuIsOpen, 'dark-mode': settings.darkMode}">
+    <div class="btn-box" [ngClass]="{'open': sideMenuIsOpen, 'selected-menu': selectedLabel === ''}" (click)="selectMenu('')">
+        <img [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\note.svg" alt="">
+        <div *ngIf="sideMenuIsOpen" class="text-box">Notizen</div>
+    </div>
+    <div class="btn-box" [ngClass]="{'open': sideMenuIsOpen, 'selected-menu': selectedLabel === 'edit-label'}" (click)="toggleEditLabel()">
+        <img [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\edit.svg" alt="">
+        <div *ngIf="sideMenuIsOpen" class="text-box">Labels bearbeiten</div>
+    </div>
+    <ng-container *ngFor="let label of labels">
+        <div class="btn-box" [ngClass]="{'open': sideMenuIsOpen, 'selected-menu': selectedLabel === label.id}"
+            (click)="selectMenu(label.id)">
+            <img [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\label.svg" alt="">
+            <div *ngIf="sideMenuIsOpen" class="text-box"> {{ label.name }} </div>
+        </div>
+    </ng-container>
+    <div class="btn-box" [ngClass]="{'open': sideMenuIsOpen, 'selected-menu': selectedLabel === 'trash'}" (click)="selectMenu('trash')">
+        <img [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\trash.svg" alt="">
+        <div *ngIf="sideMenuIsOpen" class="text-box">Papierkorb </div>
+    </div>
+</div>

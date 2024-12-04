@@ -1,0 +1,51 @@
+<div *ngIf="settings">
+    <div class="main header" [ngClass]="{'dark-mode': settings.darkMode}">
+
+            <img class="btn-menu" [ngClass]="{'invert-svg-icon':settings.darkMode}" (click)="toggleMenu()" src="./assets/icons/menu.svg" alt="">
+            <h1 class="title">{{title}}</h1>
+
+            <div class="input-container">
+                <img [ngClass]="{'invert-svg-icon': settings.darkMode}" style="left: 0;"
+                    src=".\assets\icons\search.svg" alt="">
+                <input type="text" class="full-width" [ngClass]="{'dark-mode-search': settings.darkMode}"
+                    [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
+                <img *ngIf="searchTerm.length != 0" (click)="clearSearchTerm()" class="close"
+                    [ngClass]="{'invert-svg-icon': settings.darkMode}" style="right: 0;"
+                    src=".\assets\icons\close.svg" alt="">
+            </div>
+
+        <div class="main-btn-row right" [ngClass]="{'dark-mode': settings.darkMode}">
+            <div class="main-loading">
+                <div (click)="loadFirebaseNotes()"  class="btn-box width100" [ngClass]="{'disabled': loadingFirebase}"
+                    role="div" [attr.aria-disabled]="loadingFirebase">
+                    <img [ngClass]="{'invert-svg-icon': settings.darkMode}" src=".\assets\icons\load.svg" alt="">
+                    <div  class="text-btn">load from Cloud</div>
+                </div>
+                <img [ngClass]="{'invert-svg-icon': settings.darkMode}" class="loading" *ngIf="loadingFirebase"
+                    src=".\assets\icons\loading.svg" alt="">
+            </div>
+
+            <div class="main-loading" >
+                <div (click)="saveFirebaseNotes()"  class="btn-box width100" [ngClass]="{'disabled': loadingFirebase}"
+                    role="div" [attr.aria-disabled]="loadingFirebase">
+                    <img [ngClass]="{'invert-svg-icon': settings.darkMode}" src=".\assets\icons\save.svg" alt="">
+                    <div  class="text-btn">Save in Cloud</div>
+                </div>
+                <img [ngClass]="{'invert-svg-icon': settings.darkMode}" class="loading" *ngIf="loadingFirebase"
+                    src=".\assets\icons\loading.svg" alt="">
+            </div>
+            <div class="btn-box width100" *ngIf="settings.darkMode" (click)="toggleDarkMode()">
+                <img [ngClass]="{'invert-svg-icon': settings.darkMode}" src=".\assets\icons\sun.svg" alt="">
+                <div>Helles Design</div>
+            </div>
+            <div class="btn-box"  *ngIf="!settings.darkMode" (click)="toggleDarkMode()">
+                <img [ngClass]="{'invert-svg-icon': settings.darkMode}" src=".\assets\icons\moon.svg" alt="">
+                <div class="text-btn">Dunkles Design</div>
+            </div>
+            <div class="btn-box"  (click)="logout()">
+                <img [ngClass]="{'invert-svg-icon': settings.darkMode}" src=".\assets\icons\logout.svg" alt="">
+                <div class="text-btn">Ausloggen</div>
+            </div>
+        </div>
+    </div>
+</div>

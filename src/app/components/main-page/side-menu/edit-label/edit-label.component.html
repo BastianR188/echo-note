@@ -1,0 +1,59 @@
+<!-- <div class="color-selector" (click)="openDropdown('addLabel')"
+        (clickOutside)="onClickOutside('addLabel'); isEditLabel = -1; inputLabel = ''">
+        <div class="btn-box">
+            <img [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\edit.svg" alt="">
+            <div>Labels bearbeiten</div>
+        </div>
+        <div class="dropdown-menu label-dropmenu" [ngClass]="{'dark-mode':settings.darkMode}" *ngIf="addLabelDropdown">
+            <div>
+                <div>Neues Label erstellen</div>
+                <div class="dropdown-container close-hover">
+                    <img (click)="abortNewLabel()" class="icon close" [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\close.svg" alt="">
+                    <input class="label-name width-label" #labelInput type="text" [ngClass]="{'dark-mode-input':settings.darkMode}" [(ngModel)]="inputLabel">
+                    <img *ngIf="inputLabel.length == 0" class="icon close" autofocus="labelInput" [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\edit.svg" alt="">
+                    <img *ngIf="inputLabel.length != 0" (click)="addNewLabel()" class="icon" [ngClass]="{'invert-svg-icon':settings.darkMode}"
+                        src=".\assets\icons\check.svg" alt="">
+                </div>
+            </div>
+            <div class="stroke"></div>
+            <div *ngFor="let label of this.label.labels; let i = index" class="dropdown-container close-hover">
+                <img (click)="removeLabel(label)" class="icon close" [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\close.svg" alt="">
+                <div *ngIf="isEditLabel == i" class="label-item  width-label">
+                    <input class="label-name" [(ngModel)]="editInputName" type="text" name="" id="">
+                    <img (click)="setLabel(label, i)" class="icon" [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\check.svg" alt="">
+                </div>
+                <div *ngIf="isEditLabel != i" class="label-item  width-label">
+                    <div class="label-name">{{label.name}}</div>
+                    <img (click)="editLabel(label, i)" class="icon" [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\edit.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+<div class="main" [ngClass]="{'dark-mode':settings.darkMode}">
+    <div class="title">Labels bearbeiten</div>
+    <div class="item-container">
+        <img class="icon btn" [ngClass]="{'invert-svg-icon':settings.darkMode}" (click)="deleteInput()" src="./assets/icons/close.svg" alt="">
+        <input class="text-input" [ngClass]="{'dark-mode':settings.darkMode}" [(ngModel)]="labelInputName" placeholder="Neues Label erstellen" type="text">
+        <img class="icon btn" [ngClass]="{'invert-svg-icon':settings.darkMode}" (click)="createNewLabel()" src="./assets/icons/check.svg" alt="">
+    </div>
+    <div class="labels-box ">
+        <div *ngFor="let label of labels; let i = index" class="item-container ">
+            <img class="icon btn label-icon" [ngClass]="{'invert-svg-icon':settings.darkMode}" src="./assets/icons/label.svg" alt="">
+            <img class="icon btn trash-icon" [ngClass]="{'invert-svg-icon':settings.darkMode}" (click)="removeLabel(label)" src="./assets/icons/trash.svg" alt="">
+            <div *ngIf="selectedLabel !== label.id" class="text-input label-container">{{ label.name}}</div>
+            <input *ngIf="selectedLabel === label.id" class="text-input label-container" [ngClass]="{'dark-mode':settings.darkMode}" [(ngModel)]="editInputLabel"
+                placeholder="Label" type="text">
+            <img *ngIf="selectedLabel !== label.id" [ngClass]="{'invert-svg-icon':settings.darkMode}" class="icon btn" (click)="editLabel(label)"
+                src="./assets/icons/edit.svg" alt="">
+            <img *ngIf="selectedLabel === label.id" [ngClass]="{'invert-svg-icon':settings.darkMode}" class="icon btn" (click)="setLabel(label, i)"
+                src="./assets/icons/check.svg" alt="">
+        </div>
+    </div>
+    <div class="stroke"></div>
+    <div class="d-row">
+        <div class="btn-close" (click)="closeEditLabel()">Schließen</div>
+
+    </div>
+
+</div>

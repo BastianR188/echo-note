@@ -1,0 +1,147 @@
+.main {
+    max-height: 95vh;
+    max-width: 600px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 16px;
+    border: solid 1px rgba(150, 150, 150, 0.3);
+    background-color: #fff;
+    padding: 12px;
+}
+
+.labels-box {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 80vh;
+    width: 320px;
+}
+
+
+.grow-wrap {
+    /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+    display: grid;
+    width: 100%;
+}
+
+.grow-wrap::after {
+    /* Note the weird space! Needed to preventy jumpy behavior */
+    content: attr(data-replicated-value) " ";
+
+    /* This is how textarea text behaves */
+    white-space: pre-wrap;
+
+    /* Hidden from view, clicks, and screen readers */
+    visibility: hidden;
+}
+
+.grow-wrap>textarea {
+    /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+    resize: none;
+
+    /* Firefox shows scrollbar on growth, you can hide like this. */
+    overflow: hidden;
+}
+
+.grow-wrap>textarea,
+.grow-wrap::after {
+    /* Identical styling required!! */
+    padding: 0.5rem;
+
+    /* Place on top of each other */
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+
+.item-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    box-sizing: border-box;
+    align-items: center;
+    resize: none;
+}
+
+.label-container {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-container:hover .text-input {
+    border-bottom: solid 1px gray;
+}
+
+.item-container:hover .trash-icon {
+    display: block;
+}
+
+.item-container:hover .label-icon {
+    display: none;
+}
+
+.item-container:hover .icon {
+    opacity: 0.9;
+}
+
+.trash-icon {
+    display: none;
+}
+
+.text-input {
+    outline: none;
+    background: none;
+    margin: 0;
+    padding: 6px 0;
+    font: inherit;
+    font-size: 14px;
+    min-width: 50px; /* Mindestens 50px Breite */
+    flex-grow: 1;    /* Input wächst, um den Platz zu nutzen */
+    border: solid 1px transparent;
+}
+
+.stroke {
+    border-bottom: solid 1px rgba($color: grey, $alpha: 0.3);
+    margin: 4px 12px;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.icon {
+    opacity: 0.5;
+}
+
+.d-row {
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: border-box;
+
+}
+
+.btn-close {
+    font-size: 14px;
+    padding: 4px 12px;
+    cursor: pointer;
+    border-radius: 16px;
+    &:hover {
+        background-color: rgba($color: grey, $alpha: 0.2);
+    }
+
+}
+
+.btn {
+    cursor: pointer;
+    border-radius: 100%;
+    padding: 4px;
+
+    &:hover {
+        background-color: rgba($color: grey, $alpha: 0.2);
+    }
+}

@@ -1,1 +1,55 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Rubik;
+
+    & * {
+        transition: all 0.125s ease-in-out;
+    }
+
+}
+
+.icon,
+.drag-icon {
+    width: 16px;
+    height: 16px;
+}
+
+body.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+input {
+    background-color: transparent;
+}
+
+.dark-mode-input {
+    color: #fff !important;
+}
+
+.dark-mode {
+    background-color: #333 !important;
+    color: #fff !important;
+
+    .invert-svg-icon {
+        filter: invert(1) hue-rotate(180deg) !important;
+    }
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: rgb(230, 230, 230);
+}

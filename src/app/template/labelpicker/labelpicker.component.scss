@@ -1,0 +1,108 @@
+.main {
+    position: relative;
+    font-size: 12px;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.125s ease-in-out;
+    padding: 4px;
+    opacity: 0.8;
+    &:hover {
+        background-color: rgba($color: grey, $alpha: 0.2);
+        opacity: 1;
+    }
+}
+
+.bottom {
+    position: absolute;
+    left: 16px;
+    bottom: 0;
+    z-index: 5;
+
+}
+
+.top {
+    position: absolute;
+    left: 16px;
+    top: 0;
+    z-index: 5;
+
+}
+
+.dropdown-menu {
+    display: flex;
+    width: 180px;
+    bottom:0;
+    border: 1px solid #ccc;
+    background-color: #ffff;
+    z-index: 1000;
+    padding: 8px;
+    border-radius: 16px;
+    gap: 4px;
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.2),
+        0 6px 6px rgba(0, 0, 0, 0.2);
+}
+
+.labels-box {
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.footer-menu-drop {
+    flex-direction: column;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    width: 100%;
+    word-wrap: normal;
+    word-break: keep-all;
+    hyphens: none;
+}
+
+.stroke {
+    border-bottom: solid 1px rgba($color: grey, $alpha: 0.3);
+    margin: 4px 0;
+}
+
+.label-name{
+    padding: 0 8px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 200px;
+    font-size: 12px;
+
+}
+
+.label-item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    border-radius: 16px;
+    &:hover {
+        background-color: rgba($color: grey, $alpha: 0.2);
+    }
+}
+
+.empty {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 4px 8px; 
+    font-size: 12px;
+
+}
+
+.label-btn-menu {
+    display: flex;
+    align-items: center;
+}

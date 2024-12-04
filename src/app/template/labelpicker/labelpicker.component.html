@@ -1,0 +1,26 @@
+<div class="main" appClickOutside (clickOutside)="onClickOutside(this.labels)">
+    <img class="icon" [ngClass]="{'invert-svg-icon':settings.darkMode}"
+        (click)="openDropdown()" src=".\assets\icons\label.svg" alt="">
+    <div [ngClass]="{'bottom': !isInput, 'top': isInput}">
+        <div class="dropdown-menu" [ngClass]="{'dark-mode':settings.darkMode}" *ngIf="isDropdownLabelOpen"
+            >
+            <div class="footer-menu-drop" [ngClass]="{'dark-mode':settings.darkMode}">
+                <div *ngIf="labelService.labels.length == 0" class="empty">Keine Labels vorhanden!</div>
+                <div class="labels-box">
+                    <div *ngFor="let label of labelService.labels" class="label-item label-btn-menu"
+                        (click)="toggleLabel(label, $event)">
+                        <img *ngIf="ifNoteInLabels(label.id)" style="opacity: 0.6;    height: 16px;
+                    width: 16px;" [ngClass]="{'invert-svg-icon':settings.darkMode}"
+                            src=".\assets\icons\checkbox-check.svg" alt="">
+                        <img *ngIf="!ifNoteInLabels(label.id)" style="opacity: 0.6;     height: 16px;
+                    width: 16px;" [ngClass]="{'invert-svg-icon':settings.darkMode}"
+                            src=".\assets\icons\checkbox-unchecked.svg" alt="">
+                        <div class="label-name">{{label.name}}</div>
+                    </div>
+                </div>
+                <div class="stroke"></div>
+                <div (click)="onClickOutside(this.labels)" class="label-item">Schließen</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="color-selector" (click)="toggleDropdown()" appClickOutside (clickOutside)="onClickOutside()">
+    <img class="icon" [ngClass]="{'invert-svg-icon':settings.darkMode}" src="assets/icons/color-white.svg" alt="">
+    <div [ngClass]="{'bottom': !isInput, 'top': isInput}">
+        <div class="dropdown-menu" [ngClass]="{'dark-mode':settings.darkMode}" *ngIf="isDropdownColorOpen">
+            <img class="dropdown-item icon" (click)="selectColor('#ffffff', $event)"
+                [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\no-color.svg" alt="">
+            <div *ngFor="let color of colorService.getColorPalette(settings.darkMode)"
+                class="dropdown-item icon" [style.backgroundColor]="color.value"
+                (click)="selectColor(color.value, $event)">
+            </div>
+        </div>
+    </div>
+</div>
+

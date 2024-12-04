@@ -1,0 +1,70 @@
+.color-selector {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    width: 24px;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: all 0.125s ease-in-out;
+    padding: 4px;
+    opacity: 0.8;
+    &:hover {
+        background-color: rgba($color: grey, $alpha: 0.2);
+        opacity: 1;
+    }
+}
+
+.bottom {
+    position: absolute;
+    left: 16px;
+    bottom: 0;
+    z-index: 5;
+
+}
+
+.top {
+    position: absolute;
+    left: 16px;
+    top: 0;
+    z-index: 5;
+
+}
+
+.dropdown-menu {
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    justify-content: space-around;
+    flex-direction: row;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    padding: 8px;
+    border-radius: 16px;
+    gap: 4px;
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.2),
+        0 6px 6px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-item {
+    border-radius: 50%;
+    border: solid 2px rgba(150,150,150,0);
+    cursor: pointer;
+    white-space: nowrap;
+    &:hover {
+        border: solid 2px rgba(60,60,60,0.6);
+    }
+}
+
+
+.stroke {
+    border-bottom: solid 1px rgba($color: grey, $alpha: 0.3);
+    margin: 4px 0;
+}

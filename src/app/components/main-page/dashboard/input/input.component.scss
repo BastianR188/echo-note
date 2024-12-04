@@ -1,0 +1,257 @@
+.icon {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.125s ease-in-out;
+    padding: 4px;
+    &:hover {
+        background-color: rgba($color: grey, $alpha: 0.2);
+        transition: all 0.125s ease-in-out;
+    }
+}
+
+.empty {
+    height: 24px;
+    width: 24px;
+}
+
+.btn-create.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
+
+.btn-create {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.124s ease-in-out;
+    &:hover {
+        background-color: rgba($color: grey, $alpha: 0.2);
+    }
+
+}
+.roll{
+    max-height: 0;
+    overflow: hidden;
+}
+
+.grow-wrap {
+    /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+    display: grid;
+    width: 100%;
+}
+
+.grow-wrap::after {
+    /* Note the weird space! Needed to preventy jumpy behavior */
+    content: attr(data-replicated-value) " ";
+
+    /* This is how textarea text behaves */
+    white-space: pre-wrap;
+
+    /* Hidden from view, clicks, and screen readers */
+    visibility: hidden;
+}
+
+.grow-wrap>textarea {
+    /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+    resize: none;
+
+    /* Firefox shows scrollbar on growth, you can hide like this. */
+    overflow: hidden;
+}
+
+.grow-wrap>textarea,
+.grow-wrap::after {
+    /* Identical styling required!! */
+    padding: 0.5rem;
+
+    /* Place on top of each other */
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+
+
+.input-content,
+.input-title {
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    resize: none;
+}
+
+.input-title{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.input-content{
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.handel{
+    height: 100%;
+}
+
+.text-wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
+.input-container {
+    border: solid 1px;
+    margin-top: 16px;
+    border-radius: 16px;
+    width: 80%;
+    z-index: 5;
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.3s ease;
+    padding-bottom: 4px;
+    border: solid 1px rgba($color: grey, $alpha: 0.3);
+    &:hover {
+        box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    }
+    &:focus-within {
+        box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    }
+    .input-box {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-content: space-between;
+    }
+    
+}
+
+.input-container:hover .roll {
+    max-height: 90vh;
+}
+
+.input-container:focus-within .roll {
+    max-height: 90vh;
+}
+
+.input-content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title-box {
+    margin: 4px 8px 0 8px;
+}
+
+.outerbox {
+    position: relative;
+    padding: 0 8px;
+    border: 1px solid transparent;
+    transition: border 0.3s ease;
+    &:hover {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+    &:focus-within {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .checkbox {
+        position: absolute;
+        opacity: 0.6;
+    }
+
+    .textbox {
+        margin: 0 32px;
+        width: calc(100% - 80px)
+    }
+
+    .closebox {
+        position: absolute;
+        right: 16px;
+        cursor: pointer;
+        opacity: 0;
+        transition: all 0.2s ease-in-out;
+    }
+
+    &:hover {
+        .closebox {
+            opacity: 1;
+        }
+    }
+
+    // Zeige den Remove-Button, wenn das Textarea fokussiert ist
+    .textbox:focus+.closebox {
+        opacity: 1;
+    }
+}
+
+.preview-image {
+    max-width: 480px;
+    max-height: 480px;
+    object-fit: cover;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.add-checklist {
+    text-wrap: nowrap;
+    display: flex;
+    gap: 8px;
+    padding: 2px 8px;
+    margin: 2px 8px;
+
+    align-items: center;
+    img {
+        opacity: 0.6;
+    }
+}
+
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 24px 0 24px;
+}
+
+.label-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 16px;
+}
+
+.input-footer-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.footer-menu-container {
+    display: flex;
+    gap: 16px;
+}

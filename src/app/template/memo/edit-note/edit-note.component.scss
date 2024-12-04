@@ -1,0 +1,231 @@
+.main {
+    max-height: 95vh;
+    width: 600px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 16px;
+    border: solid 1px rgba(150, 150, 150, 0.3);
+}
+
+.pinned {
+    position: absolute;
+    right: -4px;
+    top: -4px;
+    z-index: 2;
+    border-radius: 100%;
+    opacity: 1;
+}
+
+.icon-pinn {
+    right: -4px;
+    top: -4px;
+    z-index: 2;
+    border-radius: 100%;
+    opacity: 0;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+    opacity: 0.5;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.pinn {
+    position: absolute;
+    right: -4px;
+    top: -4px;
+    z-index: 2;
+    border-radius: 100%;
+}
+
+.content-box {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.main-attachment {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    cursor: pointer;
+
+    .attachment {
+        width: 100%;
+        height: auto;
+        -o-object-fit: cover;
+        object-fit: cover;
+        border-radius: 16px;
+
+    }
+
+
+    .close {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        border-radius: 100%;
+        cursor: pointer;
+        border-color: white;
+        background-color: rgba(255, 255, 255, 0.4);
+        opacity: 0;
+        transition: opacity 0.125s ease, transform 0.125s ease-in-out; // Kombinierte Transition
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    &:hover {
+        .close {
+            opacity: 1; // Macht das Element sichtbar bei Hover
+        }
+    }
+}
+.btn-add-icon {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.125s ease-in-out;
+    padding: 4px;
+    opacity: 0.8;
+
+    &:hover {
+        background-color: rgba($color: grey, $alpha: 0.2);
+        opacity: 1;
+    }
+}
+
+.grow-wrap {
+    /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+    display: grid;
+    width: 100%;
+}
+
+.grow-wrap::after {
+    /* Note the weird space! Needed to preventy jumpy behavior */
+    content: attr(data-replicated-value) " ";
+
+    /* This is how textarea text behaves */
+    white-space: pre-wrap;
+
+    /* Hidden from view, clicks, and screen readers */
+    visibility: hidden;
+}
+
+.grow-wrap>textarea {
+    /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+    resize: none;
+
+    /* Firefox shows scrollbar on growth, you can hide like this. */
+    overflow: hidden;
+}
+
+.grow-wrap>textarea,
+.grow-wrap::after {
+    /* Identical styling required!! */
+
+    /* Place on top of each other */
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.content-box {
+    width: 100%;
+    max-height: calc(95vh - 65px);
+    overflow-x: hidden;
+    overflow-y: auto;
+
+}
+
+textarea {
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    resize: none;
+    white-space: pre-wrap;
+}
+.text-wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+.input-title{
+    font-family: Rubik;
+    font-size: 16px;
+    font-weight: 500;
+    max-width: 576px;
+
+}
+
+.input-content{
+    font-family: Rubik;
+    font-size: 14px;
+    font-weight: 400;
+    max-width: 576px;
+}
+
+
+.text-container {
+    padding: 12px 12px 0 12px;
+    display: flex;
+    gap: 6px;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+
+
+.label-box {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    padding: 4px;
+    flex-wrap: wrap;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 0 12px;
+    border-radius: 16px;
+}
+
+.d-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.date-stamp {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    font-size: 10px;
+    color: rgba(0, 0, 0, 0.45);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.125s ease;
+
+    .date-stamp-text {
+        height: 16px;
+        padding-right: 8px;
+    }
+}

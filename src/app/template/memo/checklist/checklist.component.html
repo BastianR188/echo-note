@@ -1,0 +1,42 @@
+<div class="main">
+    <!-- Offene Elemente -->
+    <div cdkDropList (cdkDropListDropped)="!note.delete && onDrop($event, false); saveNote(false)" class="main-checkbox"
+        [cdkDropListDisabled]="note.delete">
+
+        <div *ngFor="let item of uncheckedItems; let i = index" cdkDragBoundary=".main-checkbox" cdkDrag
+            [cdkDragDisabled]="note.delete" class="text-checkbox-container outerbox">
+            <img class="drag-handle drag-icon handle" cdkDragHandle
+                [ngClass]="{'invert-svg-icon': settings.darkMode, 'disabled': note.delete}" src=".\assets\icons\drag-handle.svg"
+                alt="">
+            <img *ngIf="!item.checked" (click)="!note.delete && onCheckboxChange($event, item.id); saveNote(false)"
+                class="icon check-icon" [ngClass]="{'invert-svg-icon': settings.darkMode, 'disabled': note.delete}"
+                src=".\assets\icons\checkbox-unchecked.svg" alt="">
+            <span class="text" [ngClass]="{'disabled-text': note.delete}">{{ item.text }}</span>
+
+        </div>
+
+    </div>
+
+    <div *ngIf="checkedItems.length > 0 && uncheckedItems.length > 0" class="stroke"></div>
+
+    <!-- Abgeschlossene Elemente -->
+    <div cdkDropList (cdkDropListDropped)="!note.delete && onDrop($event, true); saveNote(false)"
+        [cdkDropListDisabled]="note.delete" class="main-checkbox">
+
+        <div *ngFor="let item of checkedItems; let i = index" cdkDragBoundary=".main-checkbox" cdkDrag
+            [cdkDragDisabled]="note.delete" class="text-checkbox-container outerbox">
+
+            <img class="drag-handle drag-icon completed-icon handle" cdkDragHandle
+                [ngClass]="{'invert-svg-icon': settings.darkMode, 'disabled': note.delete}" src=".\assets\icons\drag-handle.svg"
+                alt="">
+            <img *ngIf="item.checked" (click)="!note.delete && onCheckboxChange($event, item.id); saveNote(false)"
+                class="icon completed-icon check-icon" [ngClass]="{'invert-svg-icon': settings.darkMode, 'disabled': note.delete}"
+                src=".\assets\icons\checkbox-check.svg" alt="">
+            <span class="completed" [ngClass]="{'disabled-text': note.delete}">{{ item.text
+                }}</span>
+
+        </div>
+
+    </div>
+
+</div>

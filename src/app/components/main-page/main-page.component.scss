@@ -1,0 +1,22 @@
+.main {
+    height: 100%;
+    width: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.main-content{
+    display: flex;
+    flex-direction: row;
+    .side {
+        max-height: calc(100vh - 58px);
+    }
+    .content {
+        position: relative;
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: calc(100vh - 58px);
+    }
+}

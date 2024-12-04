@@ -1,0 +1,77 @@
+.main {
+    height: calc(100vh - 58px);
+    max-height: 100%;
+    box-sizing: border-box;
+    box-shadow: 5px 0 15px -10px rgba(0, 0, 0, 0.3);
+    padding: 16px 8px 16px 0;
+    width: 50px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.edit-container{
+    z-index: 1000;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* semi-transparentes Schwarz */
+    z-index: 999;
+}
+
+.main.open {
+    width: 280px;
+    padding: 16px 16px 16px 0;
+}
+
+img {
+    height: 24px;
+    width: 24px;
+}
+
+.text-box{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+}
+
+.btn-box {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    padding: 8px 0 8px 8px;
+    align-items: center;
+    font-size: 14px;
+    border-radius: 0 16px 16px 0;
+    cursor: pointer;
+    transition: all 250ms ease;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+
+    img {
+        opacity: 0.5;
+    }
+
+    &:hover {
+        background-color: rgba($color: grey, $alpha: 0.2);
+    }
+
+}
+
+.btn-box.open {
+    padding: 8px 0 8px 16px;
+}
+
+.selected-menu {
+    border-radius: 0 16px 16px 0;
+    background-color: rgba($color: grey, $alpha: 0.2);
+
+    img {
+        opacity: 1;
+    }
+}

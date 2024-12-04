@@ -1,0 +1,112 @@
+<!-- <ng-container *ngIf="isEditing">
+    <div class="overlay" (click)="abortEditNote()"></div>
+    <app-edit-note class="edit-container" [note]="note" [settings]="settings"></app-edit-note>
+</ng-container> -->
+
+
+
+<div class="main" [style.background-color]="checkColor(note.color)">
+    <div *ngIf="note.delete" class="trash-overlay"></div>
+    <div *ngIf="!note.delete" class="pinned">
+        <img *ngIf="note.isPinned" class="icon-pinn" [ngClass]="{'invert-svg-icon': settings.darkMode}"
+            style="background-color: rgba(255, 255, 255, 0.6); border-radius: 100%;" (click)="togglePinNote()"
+            src="assets/icons/pin-black.svg" alt="Pinned">
+    </div>
+    <div *ngIf="!note.delete" class="pinn">
+        <img *ngIf="!note.isPinned" class="icon-pinn" [ngClass]="{'invert-svg-icon': settings.darkMode}"
+            style="background-color: rgba(128, 128, 128, 0.2); border-radius: 100%;" (click)="togglePinNote()"
+            src="assets/icons/pin-white.svg" alt="Not pinned">
+    </div>
+
+    <div class="content-box" (click)="editNote(note)">
+        <ng-container *ngIf="note.attachments.length > 0">
+            <div *ngFor="let attachment of note.attachments; let i = index" class="main-attachment">
+                <img class="attachment" [src]="attachment.url" alt="Attachment">
+            </div>
+        </ng-container>
+
+        <div class="content">
+            <ng-container *ngIf="note.title.length != 0">
+                <div class="text-title">
+                    {{ note.title }}
+                </div>
+            </ng-container>
+            <ng-container *ngIf="note.content.length != 0">
+                <div class="text-content">
+                    {{ note.content }}
+                </div>
+            </ng-container>
+        </div>
+
+        <ng-container *ngIf="note.isChecklist">
+            <app-checklist [note]="note" [settings]="settings"></app-checklist>
+        </ng-container>
+    </div>
+    <div class="footer-box">
+        <ng-container *ngIf="note.labels.length !== 0">
+            <div class="label-box">
+                <ng-container *ngIf="note.labels.length <= 4 ; else moreThanFour ">
+                    <app-label-button *ngFor="let label of note.labels" class="label-item" [label]="label"
+                        [color]="note.color" (selectLabel)="onSelectLabel(label.id)"
+                        (onDeleteLabel)="onDeleteLabel(label.id)">
+                    </app-label-button>
+                </ng-container>
+                <ng-template #moreThanFour>
+                    <app-label-button *ngFor="let label of note.labels.slice(0, 3)" class="label-item" [label]="label"
+                        (selectLabel)="onSelectLabel(label.id)" (onDeleteLabel)="onDeleteLabel(label.id)">
+                    </app-label-button>
+                    <div class="label-count">
+                        +{{ note.labels.length - 3 }}
+                    </div>
+                </ng-template>
+            </div>
+        </ng-container>
+        <div class="footer" *ngIf="!note.delete">
+            <div class="d-row">
+                <app-colorpicker [settings]="settings" (setColorEvent)="onSelectColor($event)"></app-colorpicker>
+                <div>
+                    <img class="btn-add-icon" [ngClass]="{'invert-svg-icon': settings.darkMode}"
+                        src="assets/icons/img-white.svg" alt="" (click)="fileInput.click()">
+                    <input type="file" #fileInput (change)="onFileSelected($event)" multiple accept="image/*"
+                        style="display: none;">
+                </div>
+                <app-labelpicker [settings]="settings" [isInput]="false" [noteLabel]="note.labels"
+                    (setLabelEvent)="saveNote()" (removeLabel)="onDeleteLabel($event)"></app-labelpicker>
+                <app-footer-menu (onEditNote)="editNote(note)" (removeNote)="deleteNote()"
+                    (setNewNote)="copieNote()" [settings]="settings"></app-footer-menu>
+            </div>
+            <div class="date-stamp" [style.backgroundColor]="checkColor(note.color)"
+                [ngClass]="{'dark-mode-input': settings.darkMode}">
+                <ng-container *ngIf="note.editAt == null; else edited">
+                    <div class="date-stamp-text">Erstellt am: </div>
+                    <div class="date-stamp-text">{{ note.createdAt | date:'d MMM y, HH:mm' }} Uhr</div>
+                </ng-container>
+                <ng-template #edited>
+                    <div class="date-stamp-text">Bearbeitet am:</div>
+                    <div class="date-stamp-text">{{ note.editAt | date:'d MMM y, HH:mm' }} Uhr</div>
+                </ng-template>
+            </div>
+        </div>
+
+
+    </div>
+    <div *ngIf="note.delete" class="delete-footer-container">
+        <div class="footer-trash-note">
+            <div class="btn-box" (click)="deleteNotePermanently(note.id)">
+                <img class="icon" [ngClass]="{'invert-svg-icon': settings.darkMode}"
+                    src=".\assets\icons\trash-delete.svg" alt="">
+                <div>Endgültig Löschen</div>
+            </div>
+            <div class="btn-box" (click)="restoreNoteFromTrash(note)">
+                <img class="icon" [ngClass]="{'invert-svg-icon': settings.darkMode}"
+                    src=".\assets\icons\trash-restore.svg" alt="">
+                <div>Wiederherstellen</div>
+            </div>
+        </div>
+        <div class="date-stamp delete-timestamp" [style.backgroundColor]="checkColor(note.color)"
+            [ngClass]="{'dark-mode-input': settings.darkMode}">
+            <div class="date-stamp-text delete-timestamp-text">gelöscht am:</div>
+            <div class="date-stamp-text delete-timestamp-text">{{ note.editAt | date:'d MMM y, HH:mm' }} Uhr</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="main" [style.background-color]="checkColor(note.color)">
+    <div *ngIf="!note.delete" class="pinned">
+        <img *ngIf="note.isPinned" class="icon-pinn" [ngClass]="{'invert-svg-icon': settings.darkMode}"
+            style="background-color: rgba(255, 255, 255, 0.6); border-radius: 100%;" (click)="togglePinNote()"
+            src="assets/icons/pin-black.svg" alt="Pinned">
+    </div>
+    <div *ngIf="!note.delete" class="pinn">
+        <img *ngIf="!note.isPinned" class="icon-pinn" [ngClass]="{'invert-svg-icon': settings.darkMode}"
+            style="background-color: rgba(128, 128, 128, 0.2); border-radius: 100%;" (click)="togglePinNote()"
+            src="assets/icons/pin-white.svg" alt="Not pinned">
+    </div>
+
+    <div class="content-box">
+
+        <div *ngIf="note.attachments.length > 0">
+            <div *ngFor="let attachment of note.attachments; let i = index" class="main-attachment">
+                <img class="attachment" (click)="openImageInNewTab(attachment.url)" [src]="attachment.url" alt="Attachment">
+                <img *ngIf="!note.delete" class="icon close" [ngClass]="{'invert-svg-icon': settings.darkMode}"
+                    (click)="removeAttachment($event, attachment.id)" src=".\assets\icons\close.svg"
+                    alt="">
+            </div>
+        </div>
+
+        <div class="text-container">
+            <div class="grow-wrap text-wrap input-title">
+                <textarea  id="titleTextarea"
+                    [style.backgroundColor]="checkColor(note.color)" class="input-title text-wrap" rows="1"
+                    [ngClass]="{'dark-mode-input': settings.darkMode}" type="text" [(ngModel)]="note.title"
+                    onInput="this.parentNode.dataset.replicatedValue = this.value" placeholder="Title"></textarea>
+            </div>
+            <ng-container *ngIf="!note.isChecklist">
+            <div class="grow-wrap text-wrap input-content">
+                <textarea *ngIf="!note.isChecklist" id="contentTextarea"
+                    [style.backgroundColor]="checkColor(note.color)" class="input-content text-wrap" rows="1"
+                    [ngClass]="{'dark-mode-input': settings.darkMode}" type="text" [(ngModel)]="note.content"
+                    onInput="this.parentNode.dataset.replicatedValue = this.value" placeholder="Notiz schreiben..."></textarea>
+            </div>
+        </ng-container>
+        </div>
+
+        <ng-container *ngIf="note.isChecklist">
+            <app-edit-checklist [note]="note" [settings]="settings"></app-edit-checklist>
+
+        </ng-container>
+
+
+    </div>
+
+    <div class="footer-box">
+        <ng-container *ngIf="note.labels.length != 0">
+            <div class="label-box">
+                <ng-container >
+                    <app-label-button *ngFor="let label of note.labels" class="label-item" [label]="label"
+                        [color]="note.color" (selectLabel)="onSelectLabel(label.id)"
+                        (onDeleteLabel)="onDeleteLabel(label.id)">
+                    </app-label-button>
+                </ng-container>
+            </div>
+        </ng-container>
+        <div class="footer">
+            <div class="d-row">
+                <app-colorpicker [settings]="settings" (setColorEvent)="onSelectColor($event)"></app-colorpicker>
+                <div>
+                    <img class="btn-add-icon" [ngClass]="{'invert-svg-icon': settings.darkMode}" src="assets/icons/img-white.svg"
+                        alt="" (click)="fileInput.click()">
+                    <input type="file" #fileInput (change)="onFileSelected($event)" multiple accept="image/*"
+                        style="display: none;">
+                </div>
+                <app-labelpicker [settings]="settings" [isInput]="false" [noteLabel]="note.labels"  (removeLabel)="onDeleteLabel($event)"></app-labelpicker>
+            </div>
+            <div class="date-stamp" [style.backgroundColor]="checkColor(note.color)"
+                [ngClass]="{'dark-mode-input': settings.darkMode}">
+                <ng-container *ngIf="note.editAt == null; else edited">
+                    <div class="date-stamp-text">Erstellt am: </div>
+                    <div class="date-stamp-text">{{ note.createdAt | date:'d MMM y, HH:mm' }} Uhr</div>
+                </ng-container>
+                <ng-template #edited>
+                    <div class="date-stamp-text">Bearbeitet am:</div>
+                    <div class="date-stamp-text">{{ note.editAt | date:'d MMM y, HH:mm' }} Uhr</div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

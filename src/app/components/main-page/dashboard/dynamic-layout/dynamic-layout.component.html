@@ -1,0 +1,12 @@
+<ng-container *ngIf="isEditing && editNote.length != 0">
+  <div class="overlay" (click)="abortEditNote(editNote[0])"></div>
+  <app-edit-note class="edit-container" [note]="editNote[0]" [settings]="settings"></app-edit-note>
+</ng-container>
+
+<div style="width: 100%;"  #columnContainer></div>
+<div class="column-container" #container [style.grid-template-columns]="gridTemplateColumns">
+  <div *ngFor="let column of columns; let colIndex = index" class="column" cdkDropList [cdkDropListData]="column"
+    (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="getConnectedLists(colIndex)">
+     <app-memo #noteElement (editingNote)="setEditNote($event)" (isEditing)="editingNote($event)" [attr.data-note-id]="note.order" *ngFor="let note of column; let noteIndex = index" class="note" [cdkDragStartDelay]="10" cdkDrag [cdkDragData]="note" [settings]="settings" [note]="note"></app-memo>
+  </div>
+</div>

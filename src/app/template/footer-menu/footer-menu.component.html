@@ -1,0 +1,16 @@
+<div class="main" (click)="toggleDropdown()" appClickOutside (clickOutside)="onClickOutside()">
+    <img class="icon" [ngClass]="{'invert-svg-icon':settings.darkMode}" src="assets/icons/menu-vertical.svg" alt="">
+    <div [ngClass]="{'bottom': !isInput, 'top': isInput}">
+        <div class="dropdown-menu" [ngClass]="{'dark-mode':settings.darkMode}" *ngIf="isMenuOpen">
+            <div class="menu-item" (click)="editNote()">Bearbeiten</div>
+
+            <div class="menu-item" (click)="copieNote()">Kopie erstellen</div>
+
+            <div class="menu-item" (click)="deleteNote()">Notiz Löschen</div>
+
+            <div class="stroke"></div>
+            <div (click)="onClickOutside()" class="menu-item">Schließen</div>
+
+        </div>
+    </div>
+</div>

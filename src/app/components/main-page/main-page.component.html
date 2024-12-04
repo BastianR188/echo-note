@@ -1,0 +1,7 @@
+<div class="main">
+    <app-header [settings]="settings" (logoutEvent)="handleLogout()" (setDarkMode)="onSetDarkMode($event)"></app-header>
+    <div class="main-content">
+        <app-side-menu [settings]="settings" class="side"></app-side-menu>
+        <app-dashboard [ngClass]="{'dark-mode': settings.darkMode}" [settings]="settings" class="content"></app-dashboard>
+    </div>
+</div>

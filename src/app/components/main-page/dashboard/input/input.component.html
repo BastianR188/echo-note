@@ -1,0 +1,94 @@
+<div class="input-container" [style.backgroundColor]="checkColor()">
+    <div class="input-box">
+        <div class="input-line title-box">
+            <div class="grow-wrap text-wrap input-title ">
+                <textarea [style.backgroundColor]="checkColor()" [ngClass]="{'dark-mode-input':settings.darkMode}"
+                    class="input-title text-wrap" autosizedirectiv autosize cdkTextareaAutosize type="text"
+                    [(ngModel)]="title" placeholder="Title" rows="1"
+                    onInput="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+            </div>
+            <span class="pinn">
+                <img *ngIf="isPinned" class="icon" [ngClass]="{'invert-svg-icon':settings.darkMode}"
+                    (click)="isPinned = false" src="assets/icons/pin-black.svg" alt="Pinned">
+                <img *ngIf="!isPinned" class="icon" [ngClass]="{'invert-svg-icon':settings.darkMode}"
+                    (click)="isPinned = true" src="assets/icons/pin-white.svg" alt="Not pinned">
+            </span>
+        </div>
+        <div class="input-content-container">
+            <div *ngIf="!isChecklist" class="input-line title-box">
+                <div class="grow-wrap text-wrap input-content">
+                    <textarea [style.backgroundColor]="checkColor()" class="input-content text-wrap"
+                        [ngClass]="{'dark-mode-input':settings.darkMode}" autosizedirectiv autosize cdkTextareaAutosize
+                        type="text" [(ngModel)]="note" placeholder="Notiz schreiben..." rows="1"
+                        onInput="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+                </div>
+            </div>
+            <div *ngIf="isChecklist">
+                <div *ngFor="let item of checklistItems; let i = index">
+                    <div class="input-line outerbox checklist-area-border">
+                        <img [src]="item.checked ? './assets/icons/checkbox-check.svg' : './assets/icons/checkbox-unchecked.svg'"
+                            (click)="checklistItems[i].checked = !checklistItems[i].checked" class="icon checkbox"
+                            [ngClass]="{'invert-svg-icon':settings.darkMode}"
+                            [alt]="item.checked ? 'Checked' : 'Unchecked'">
+                        <div class="grow-wrap text-wrap input-content">
+                            <textarea #textArea [id]="'item-' + item.id" [style.backgroundColor]="checkColor()"
+                                class="input-content textbox checklist-area-input text-wrap"
+                                [ngClass]="{'dark-mode-input':settings.darkMode}" autosizedirectiv autosize
+                                cdkTextareaAutosize type="text" [(ngModel)]="checklistItems[i].text"
+                                placeholder="Listeneintrag schreiben..." rows="1"
+                                onInput="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+                        </div>
+                        <div class="closebox">
+                            <img class="icon close" (click)="removeChecklistItem(item.id)"
+                                [ngClass]="{'invert-svg-icon':settings.darkMode}" src=".\assets\icons\close.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-create add-checklist" [ngClass]="{'dark-mode-input':settings.darkMode}"  (click)="addChecklistItem()">
+                    <img width="24px" height="24px"[ngClass]="{'invert-svg-icon':settings.darkMode}"
+                        src=".\assets\icons\add-row.svg" alt="">Listeneintrag
+                    hinzufügen
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="imageUrls.length != 0" class="image-preview">
+        <img *ngFor="let imageUrl of imageUrls" [src]="imageUrl" alt="Selected Image" class="preview-image">
+    </div>
+    <ng-container *ngIf="labels.length !== 0">
+        <div class="label-box">
+            <app-label-button *ngFor="let label of labels" class="label-item" [label]="label"
+                (selectLabel)="onSelectLabel(label.id)" (onDeleteLabel)="onDeleteLabel(label.id)">
+            </app-label-button>
+        </div>
+    
+    </ng-container>
+    <div class="input-footer-container ">
+        <div class="footer-menu-container">
+            <div class="empty"></div>
+            <app-colorpicker [settings]="settings" [isInput]="true"
+                (setColorEvent)="onSelectColor($event)"></app-colorpicker>
+
+
+            <div>
+                <img class="icon" [ngClass]="{'invert-svg-icon':settings.darkMode}" src="assets/icons/img-white.svg"
+                    alt="" (click)="fileInput.click()">
+                <input type="file" #fileInput (change)="onFileSelected($event)" multiple accept="image/*"
+                    style="display: none;">
+            </div>
+            <app-labelpicker [settings]="settings" [isInput]="true" [noteLabel]="labels" (removeLabel)="onDeleteLabel($event)"></app-labelpicker>
+        </div>
+        <div class="footer-menu-container">
+            <span class="pinn">
+                <img *ngIf="isChecklist" class="icon" [ngClass]="{'invert-svg-icon':settings.darkMode}"
+                    (click)="isChecklist = false; deleteChecklistItems()" src=".\assets\icons\checkbox-black.svg"
+                    alt="Pinned">
+                <img *ngIf="!isChecklist" class="icon" [ngClass]="{'invert-svg-icon':settings.darkMode}"
+                    (click)="isChecklist = true; isChecklistItem()" src=".\assets\icons\checkbox-outline.svg"
+                    alt="Not pinned">
+            </span>
+            <div class="btn-create"  [ngClass]="{'dark-mode-input':settings.darkMode, 'disabled': !checkContent()}"  (click)="createNote()"><strong>Erstellen</strong></div>
+            <div class="empty"></div>
+        </div>
+    </div>
+</div>

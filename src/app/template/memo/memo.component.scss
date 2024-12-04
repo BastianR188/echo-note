@@ -1,0 +1,275 @@
+.text-title {
+    font-size: 14px;
+    white-space: pre-wrap;
+    hyphens: auto;
+    word-wrap: break-word;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* semi-transparentes Schwarz */
+    z-index: 999;
+}
+
+.edit-container {
+    z-index: 1000;
+}
+
+.text-content {
+    font-size: 12px;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 220px;
+    hyphens: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.trash-overlay {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 36px);
+    top: 0;
+}
+
+.delete-footer-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    border-radius: 16px;
+    border: solid 1px rgba(150, 150, 150, 0.3);
+    position: relative;
+    width: 240px;
+    &:hover {
+        box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    }
+}
+
+.main:hover .footer,
+.main:hover .pinn {
+    opacity: 1;
+}
+
+
+.content-box {
+    max-height: 350px;
+    min-width: 220px;
+    overflow: hidden;
+
+}
+
+.pinned {
+    position: absolute;
+    right: -4px;
+    top: -4px;
+    z-index: 2;
+    border-radius: 100%;
+    opacity: 1;
+}
+
+.icon-pinn {
+    right: -4px;
+    top: -4px;
+    z-index: 2;
+    border-radius: 100%;
+    opacity: 0;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+    opacity: 0.5;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.pinn {
+    position: absolute;
+    right: -4px;
+    top: -4px;
+    z-index: 2;
+    border-radius: 100%;
+    opacity: 0;
+}
+
+
+.content {
+    max-height: 300px;
+    display: flex;
+    gap: 6px;
+    flex-direction: column;
+    -webkit-line-clamp: 16;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 8px 6px 0 6px;
+    white-space: pre-wrap;
+    word-wrap: break-all;
+
+}
+
+.label-item {
+    max-width: 100%;
+}
+
+.label-box {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    padding: 4px;
+    flex-wrap: wrap;
+
+}
+
+.d-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.btn-add-icon {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.125s ease-in-out;
+    padding: 4px;
+ 
+    &:hover {
+        background-color: rgba($color: grey, $alpha: 0.2);
+    }
+}
+
+.label-count {
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    max-width: 280px;
+    padding: 0 4px;
+    border-radius: 16px;
+    opacity: 0;
+}
+
+.main-attachment {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+
+    .attachment {
+        width: 100%;
+        height: auto;
+        -o-object-fit: cover;
+        object-fit: cover;
+        border-radius: 16px;
+
+    }
+
+
+    .close {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        border-radius: 100%;
+        cursor: pointer;
+        border-color: white;
+        background-color: rgba(255, 255, 255, 0.4);
+        opacity: 0;
+        transition: opacity 0.125s ease, transform 0.125s ease-in-out; // Kombinierte Transition
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    &:hover {
+        .close {
+            opacity: 1; // Macht das Element sichtbar bei Hover
+        }
+    }
+}
+
+.date-stamp {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0;
+    font-size: 8px;
+    color: rgba(0, 0, 0, 0.45);
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 16px 0;
+    transition: all 0.125s ease;
+
+    .date-stamp-text {
+        height: 16px;
+        padding-right: 8px;
+    }
+}
+
+.footer-trash-note {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 3;
+}
+
+.delete-timestamp-text {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete-timestamp {
+    border-radius: 0 0 16px 16px;
+    margin-top: 4px;
+
+}
+
+.date-footer-delete {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 8px;
+    border-radius: 0 0 16px 16px;
+}
+
+.btn-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 125ms ease;
+    padding: 4px 8px;
+    border-radius: 16px;
+    width: 140px;
+    gap: 8px;
+    font-size: 12px;
+    border: solid 1px rgba($color: grey, $alpha: 0.2);
+
+    &:hover {
+        background-color: rgba($color: grey, $alpha: 0.2);
+    }
+}

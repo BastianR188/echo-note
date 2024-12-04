@@ -1,0 +1,69 @@
+<div class="main">
+    <!-- Offene Elemente -->
+    <div cdkDropList (cdkDropListDropped)="!note.delete && onDrop($event, false)" class="main-checkbox"
+        [cdkDropListDisabled]="note.delete">
+
+        <div *ngFor="let item of uncheckedItems; let i = index" cdkDragBoundary=".main" cdkDrag
+            [cdkDragDisabled]="note.delete" class="text-checkbox-container outerbox">
+            <div class="handle" cdkDragHandle>
+            <img class="drag-handle drag-icon handle" 
+                [ngClass]="{'invert-svg-icon': settings.darkMode, 'disabled': note.delete}" src=".\assets\icons\drag-handle.svg"
+                alt="">
+            </div>
+            <img *ngIf="!item.checked" (click)="!note.delete && onCheckboxChange($event, item.id)"
+                class="icon checkbox check-icon" [ngClass]="{'invert-svg-icon': settings.darkMode, 'disabled': note.delete}"
+                src=".\assets\icons\checkbox-unchecked.svg" alt="">
+            <div class="grow-wrap text-wrap input-content ">
+                <textarea [id]="'item-' + item.id" id="{{item.id}}" [style.backgroundColor]="checkColor(note.color)" class="input-content text-wrap"
+                    rows="1" [ngClass]="{'dark-mode-input': settings.darkMode}" type="text" [(ngModel)]="item.text"
+                    onInput="this.parentNode.dataset.replicatedValue = this.value" placeholder="Note"></textarea>
+            </div>
+            <div class="closebox" (click)="removeChecklistItem(item.id)">
+                <img [ngClass]="{'invert-svg-icon': settings.darkMode}" class="icon close" src=".\assets\icons\close.svg" alt="">
+            </div>
+        </div>
+
+    </div>
+    <div class="icon add-checklist" (click)="addChecklistItem()">
+        <img width="16px" height="16px" [ngClass]="{'invert-svg-icon': settings.darkMode}"
+            src=".\assets\icons\add-row.svg" alt="">Listeneintrag
+        hinzufügen
+    </div>
+
+    <div *ngIf="checkedItems.length > 0 && uncheckedItems.length > 0" class="stroke"></div>
+
+    <div *ngIf="checkedItems.length > 0" class="completed-items">
+        <button (click)="toggleCompletedItems()" class="toggle-button">
+            {{ isCompletedItemsVisible ? '▼' : '▶' }}
+        </button>
+        {{ checkedItems.length }} Abgeschlossene {{ checkedItems.length === 1 ? 'Element' :
+        'Elemente'
+        }}
+    </div>
+    <!-- Abgeschlossene Elemente -->
+    <div [hidden]="!isCompletedItemsVisible" cdkDropList (cdkDropListDropped)="!note.delete && onDrop($event, true)"
+        [cdkDropListDisabled]="note.delete" class="completed-items-list">
+
+        <div *ngFor="let item of checkedItems; let i = index" cdkDragBoundary=".main" cdkDrag
+            [cdkDragDisabled]="note.delete" class="text-checkbox-container outerbox">
+
+            <img class="drag-handle drag-icon completed-icon handle" cdkDragHandle
+                [ngClass]="{'invert-svg-icon': settings.darkMode, 'disabled': note.delete}" src=".\assets\icons\drag-handle.svg"
+                alt="">
+            <img *ngIf="item.checked" (click)="!note.delete && onCheckboxChange($event, item.id)"
+                class="icon completed-icon check-icon" [ngClass]="{'invert-svg-icon': settings.darkMode, 'disabled': note.delete}"
+                src=".\assets\icons\checkbox-check.svg" alt="">
+
+            <div class="grow-wrap text-wrap input-content completed">
+                <textarea id="{{item.id}}" [id]="'item-' + item.id" [style.backgroundColor]="checkColor(note.color)" class="input-content text-wrap completed"
+                    rows="1" [ngClass]="{'dark-mode-input': settings.darkMode}" type="text" [(ngModel)]="item.text"
+                    onInput="this.parentNode.dataset.replicatedValue = this.value" placeholder="Listeneintrag schreiben..."></textarea>
+            </div>
+            <div class="closebox" (click)="removeChecklistItem(item.id)">
+                <img [ngClass]="{'invert-svg-icon': settings.darkMode}" class="icon close" src=".\assets\icons\close.svg" alt="">
+            </div>
+        </div>
+
+    </div>
+
+</div>
